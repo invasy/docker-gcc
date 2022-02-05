@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  gcc_remote:
+    image: invasy/gcc-remote:latest
+    build:
+      context: .
+    cap_add:
+    - SYS_PTRACE
+    container_name: gcc_remote
+    hostname: gcc
+    domainname: invasy.dev
+    ports:
+    - "127.0.0.1:22002:22"
+    restart: unless-stopped

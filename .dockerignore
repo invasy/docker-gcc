@@ -1,0 +1,9 @@
+.git*
+.idea/
+.vscode/
+cmake-build-*/
+.editorconfig
+*.yml
+Makefile
+*.md
+images/
