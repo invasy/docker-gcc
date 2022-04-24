@@ -5,7 +5,7 @@ services:
     build:
       context: .
     cap_add:
-    - SYS_PTRACE
+    - SYS_ADMIN
     container_name: gcc_remote
     hostname: gcc
     domainname: invasy.dev

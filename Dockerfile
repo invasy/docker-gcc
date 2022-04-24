@@ -22,15 +22,17 @@ RUN set -eu; \
     unzip \
     wget
 COPY sshd_config /etc/ssh/sshd_config
-# Create user
+# Create user and set up environment
 RUN set -eu; \
   useradd --create-home --comment='C/C++ Remote Builder for CLion' --shell=/bin/bash builder; \
-  yes builder | passwd --quiet builder; mkdir -p ~builder/.ssh; (\
+  yes builder | passwd --quiet builder; \
+  touch ~builder/.hushlogin; \
+  mkdir -p ~builder/.ssh; (\
     echo "CC=/usr/local/bin/gcc"; \
     echo "CXX=/usr/local/bin/g++"; \
   ) >~builder/.ssh/environment; \
-  touch ~builder/.hushlogin; \
-  chown -R builder: ~builder; chmod -R go= ~builder
+  chown -R builder: ~builder; chmod -R go= ~builder; \
+  echo 'kernel.perf_event_paranoid=1' > /etc/sysctl.d/99-perf.conf
 # Install ninja
 RUN set -eu; cd /tmp; \
   ninja_url="https://github.com/ninja-build/ninja/releases/download/v${NINJA_VERSION}/ninja-linux.zip"; \

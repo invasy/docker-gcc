@@ -25,7 +25,7 @@ build: Dockerfile
 		--tag "$(tag)" --tag "$(latest)" .
 
 run: build
-	@docker run --detach --cap-add=sys_ptrace --name="$(CONTAINER)" \
+	@docker run --detach --cap-add=sys_admin --name="$(CONTAINER)" \
 		--publish="127.0.0.1:$(PORT):22" --restart=unless-stopped "$(latest)"
 
 login:
@@ -45,6 +45,12 @@ up: docker-compose.yml
 
 down: docker-compose.yml
 	@docker-compose down
+
+shell:
+	@docker exec --interactive --tty --user builder --workdir /home/builder $(CONTAINER) /bin/bash
+
+root:
+	@docker exec --interactive --tty --workdir /root $(CONTAINER) /bin/bash
 
 list:
 	@-docker container ls -f name=$(CONTAINER)

@@ -28,7 +28,7 @@ _Note_: CMake versions 3.21.* are not supported by CLion versions up to 2021.2.*
 
 ### Run container
 ```bash
-docker run -d --cap-add=sys_ptrace --name=gcc_remote -p 127.0.0.1:22002:22 invasy/gcc-remote:latest
+docker run -d --cap-add=sys_admin --name=gcc_remote -p 127.0.0.1:22002:22 invasy/gcc-remote:latest
 ```
 or from git repository:
 ```bash
@@ -36,24 +36,26 @@ docker-compose up -d
 ```
 
 ### CLion Configuration
-- **Toolchains**:
-  - **Name**: `gcc-remote`
-  - **Credentials**: _see **SSH Configurations** below_
-  - **CMake**: `/usr/local/bin/cmake`
-  - **Make**: `/usr/local/bin/ninja` (_see also **CMake** below_)
-  - **C Compiler**: `/usr/local/bin/gcc` (_should be detected_)
-  - **C++ Compiler**: `/usr/local/bin/g++` (_should be detected_)
-  - **Debugger**: `/usr/bin/gdb` (_should be detected_)
-- **SSH Configurations**:
-  - **Host**: `127.0.0.1`
-  - **Port**: `22002`
-  - **Authentication type**: `Password`
-  - **User name**: `builder`
-  - **Password**: `builder`
-- **CMake**:
-  - **Profiles**:
-    - **Debug** (_or any other profile_):
-      - **CMake options**: `-G Ninja`
+#### Toolchains
+- **Name**: `gcc-remote`
+- **Credentials**: _see **SSH Configurations** below_
+- **CMake**: `/usr/local/bin/cmake`
+- **Make**: `/usr/local/bin/ninja` (_see also **CMake** below_)
+- **C Compiler**: `/usr/local/bin/gcc` (_should be detected_)
+- **C++ Compiler**: `/usr/local/bin/g++` (_should be detected_)
+- **Debugger**: `/usr/bin/gdb` (_should be detected_)
+
+#### SSH Configurations
+- **Host**: `127.0.0.1`
+- **Port**: `22002`
+- **Authentication type**: `Password`
+- **User name**: `builder`
+- **Password**: `builder`
+
+#### CMake
+- **Profiles**:
+  - **Debug** (_or any other profile_):
+    - **CMake options**: `-G Ninja`
 
 ## SSH
 ### Configuration
